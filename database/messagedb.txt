@@ -1,0 +1,10 @@
+bot;hoang đã rời khỏi phòng test :'(;test;2021-08-20T22:21:19+07:00
+bot;Chào mừng hoang đến với phòng test <3;test;2021-08-20T22:21:21+07:00
+hoang;hello;test;2021-08-20T22:21:30+07:00
+bot;Holle hoang :);test;2021-08-20T22:21:30+07:00
+bot;hoang đã rời khỏi phòng test :'(;test;2021-08-20T22:21:45+07:00
+bot;Chào mừng admin đến với phòng test <3;test;2021-08-20T22:22:10+07:00
+admin;xin chào;test;2021-08-20T22:22:22+07:00
+bot;Chào admin;test;2021-08-20T22:22:22+07:00
+bot;admin đã rời khỏi phòng test :'(;test;2021-08-20T22:22:31+07:00
+bot;Chào mừng hoang đến với phòng test <3;test;2021-08-24T23:56:07+07:00

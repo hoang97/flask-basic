@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+
+{% block form %}
+    <h5 class="card-title">Create new Account</h5>
+    <form method="post">
+        <div class="mb-3">
+            <label for="inputUserName" class="form-label card-text">User Name</label>
+            <input type="text" class="form-control" id="inputUserName" name="username">
+            <label for="inputPassword" class="form-label card-text">Password</label>
+            <input type="password" class="form-control" id="inputPassword" name="password">
+            <label for="inputPasswordConfirm" class="form-label card-text">Confirm Password</label>
+            <input type="password" class="form-control" id="inputPasswordConfirm" name="password_confirm" aria-describedby="passwordHelp">
+            <div id="passwordHelp" class="form-text">Already had an account? <a href="{{url_for('login')}}">Login</a></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Let's Go</button>
+    </form>
+{% endblock form %}

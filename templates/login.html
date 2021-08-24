@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block form %}
+    <h5 class="card-title">Login to App</h5>
+    <form method="post">
+        <div class="mb-3">
+            <label for="inputUserName" class="form-label card-text">User Name</label>
+            <input type="text" class="form-control" id="inputUserName" name="username">
+            <label for="inputPassword" class="form-label card-text">Password</label>
+            <input type="password" class="form-control" id="inputPassword" name="password" aria-describedby="passwordHelp">
+            <div id="passwordHelp" class="form-text">Don't have an account yet? <a href="{{url_for('register')}}">Register</a></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Let's Go</button>
+    </form>
+{% endblock form %}

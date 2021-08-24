@@ -1,0 +1,18 @@
+body {
+    background-image: url(../../images/background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: right bottom;
+}
+.title {
+    font-family: 'Style Script', cursive;
+    font-size: 2rem;
+}
+.title-s {
+    font-family: 'Style Script', cursive;
+    font-size: 1rem;
+}
+
+.h-center {
+    vertical-align: middle;
+}

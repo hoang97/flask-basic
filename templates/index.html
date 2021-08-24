@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Style+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <title>Chat App</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-md-end m-5">
+            <div class="col-9 d-flex align-items-center">
+                <figure>
+                    <blockquote class="blockquote text-light title">
+                        <p>Where you can sit and talk for a while.</p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer text-light title-s">
+                        Someone famous in <cite title="Source Title">ITMO university</cite>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="card-sm col-3 bg-light bg-gradient pt-2 rounded" style="max-width: 18rem;">
+                <img src="{{url_for('image_file', filename='chat-icons.jpg')}}" class="card-img-top" alt="icons">
+                <div class="card-body">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul style="color: red;">
+                                {% for message in messages %}
+                                    <li>{{message}}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
+                    {% block form %}
+                        <h5 class="card-title">Enter your Infomations</h5>
+                        <form method="post">
+                            <div class="mb-3">
+                                <label for="inputMethod" class="form-label card-text">Choose Chat Method</label>
+                                <select id="inputMethod" class="form-select" name="method">
+                                    <option value="ws" selected>WebSocket</option>
+                                    <option value="long">Long Polling</option>
+                                    <option value="short">Short Polling</option>
+                                </select>
+                                <label for="inputRoom" class="form-label card-text">Room Chat</label>
+                                <input type="text" class="form-control" id="inputRoom" name="room_name" aria-describedby="roomHelp">
+                                <div id="roomHelp" class="form-text">Always change password to keep your account secure! <a href="{{url_for('edit_password')}}">Change it here</a></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Let's Chat</button>
+                        </form>
+                    {% endblock form %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</html>
