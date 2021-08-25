@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+
+{% block form %}
+    <h5 class="card-title">Upload your new profile picture</h5>
+    <form method="post" enctype=multipart/form-data>
+        <div class="mb-3">
+            <label for="imageUpload" class="form-label card-text">Profile picture</label>
+            <input type="file" class="form-control" id="imageUpload" name="image" aria-describedby="imageUploadHelp">
+            <div id="imageUploadHelp" class="form-text">Don't wanna change? <a href="{{url_for('index')}}">Go back here</a></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock form %}

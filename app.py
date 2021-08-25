@@ -1,8 +1,9 @@
-import bot, time
+import bot, time, os
 from functools import wraps
 
 from flask import Flask, render_template, request, send_from_directory, redirect, flash, make_response
 from flask.helpers import url_for
+from werkzeug.utils import secure_filename
 from flask_socketio import Namespace, emit, SocketIO, join_room, leave_room, send
 
 from models import User
@@ -10,6 +11,7 @@ import config
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config.SECRET_KEY
+app.config['UPLOAD_FOLDER'] = config.UPLOAD_FOLDER
 socketio = SocketIO(app)
 IMAGES_ROOT = config.IMAGES_ROOT
 MESSAGE_DB_DIR = config.MESSAGE_DB_DIR
@@ -44,6 +46,9 @@ def login_required(func):
             flash('Please login first!!!','error')
             return redirect(url_for('login'))
     return vertify
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in config.ALLOWED_EXTENSIONS
 
 # --------------------------Xử lí Websocket--------------------------------
 
@@ -118,12 +123,12 @@ def chat():
 @login_required
 def index():
     username = request.cookies.get('username', '')
+    user = User.filter(username=username)[0]
     if request.method == 'POST':
         room_name = request.form.get('room_name', '')
         method = request.form.get('method', '')
         return redirect(url_for('chat', username=username, room_name=room_name, method=method))
-
-    return render_template('index.html')
+    return render_template('index.html', user_imageURL=user.imageURL)
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -195,6 +200,31 @@ def edit_password():
             return redirect(url_for('login'))
     
     return render_template('edit_password.html')
+
+@app.route('/edit-profile-pic/', methods=['GET', 'POST'])
+@login_required
+def upload_file():
+    user = User.filter(username=request.cookies.get('username', ''))[0]
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'image' in request.files: 
+            image = request.files['image']
+            # If the user does not select a file, the browser submits an empty file without a filename.
+            if image.filename:
+                if image and allowed_file(image.filename):
+                    filename = secure_filename(image.filename)
+                    new_imageURL = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    image.save(new_imageURL)
+                    user.imageURL = new_imageURL
+                    user.save()
+                    flash('Changed image successfully!!!')
+                    return redirect(url_for('upload_file'))
+            else:
+                flash('No selected image')
+        else:
+            flash('No image part')
+
+    return render_template('edit_profile_pic.html', user_imageURL=user.imageURL)
 
 @app.route('/images/<path:filename>')
 def image_file(filename):

@@ -1,23 +1,16 @@
-# import config
+import config
 import random, string
 from werkzeug.security import generate_password_hash, check_password_hash
 from pymongo import MongoClient
 
-# USER_DB_DIR = config.USER_DB_DIR
-# DATABASE_URI = config.DATABASE_URI
-USER_DB_DIR = 'fake'
-DATABASE_URI = 'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000'
+USER_DB_DIR = config.USER_DB_DIR
+DATABASE_URI = config.DATABASE_URI
+# USER_DB_DIR = 'fake'
+# DATABASE_URI = 'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000'
 
 client = MongoClient(DATABASE_URI)
 db = client['hw6']
 users = db['users']
-
-def is_ok(dict1, dict2):
-    # Return True if dict2 as same values as dict1
-    for key, value in dict1.items():
-        if dict2[key] != value:
-            return False
-    return True
 
 def gen_session_token(length=24):
     token = ''.join([random.choice(string.ascii_letters + string.digits) for i in range(length)])
