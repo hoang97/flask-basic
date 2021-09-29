@@ -1,4 +1,4 @@
-# HW-6 Chat App developed by DBH
+# Flask Chat App for learning purpose
 Where you can sit and talk for a while <3
 # Installation
 Install dependencies
